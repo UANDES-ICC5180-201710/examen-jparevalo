@@ -21,7 +21,7 @@
 
 <div class = "row">
   <div class = "col-md-3" align = "left">
-    <img src="<%= @game.image_url %>"><img>
+    <img src="<%= @game.image_url %>" style="max-width: 100%;"><img>
   </div>
   <div class = "col-md-9" align = "left">
     <div class="panel panel-default">
@@ -47,9 +47,3 @@
   <% end %>
   <%= link_to 'Back', games_path, class: "btn btn-danger", style: "color:white" %>
 </div>
-
-<style>
-img {
-    max-width: 100%;
-}
-</style>
