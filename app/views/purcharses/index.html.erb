@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Purcharses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Game</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @purcharses.each do |purcharse| %>
+      <tr>
+        <td><%= purcharse.user_id %></td>
+        <td><%= purcharse.game_id %></td>
+        <td><%= link_to 'Show', purcharse %></td>
+        <td><%= link_to 'Edit', edit_purcharse_path(purcharse) %></td>
+        <td><%= link_to 'Destroy', purcharse, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Purcharse', new_purcharse_path %>

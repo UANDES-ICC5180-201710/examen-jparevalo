@@ -12,6 +12,42 @@
   <strong>Image url:</strong>
   <%= @game.image_url %>
 </p>
+<% if @current_user.id %>
+      <% button_class = 'btn btn-link notActive' %>
+      <% button_title = 'I Have it!' %>
+      <% span_class = 's-notActive' %>
+      <% @current_user.purcharses.each do |pu| %>
+        <% if pu.game == @game %>
+          <% button_class = 'btn btn-link isActive' %>
+          <% button_title = 'I dont have it!' %>
+          <% span_class = 's-isActive' %>
+          <% break %>
+        <% end %>
+      <% end %>
+    <% end %>
+<span>
+<p id='people-purcharsed-<%= @game.id -%>' style="display:inline;">Purcharses: <%= @game.purcharses.length %></p>
+<button title="<%= button_title -%>" onclick="togglePurcharse(<%= @game.id -%>)" id="<%= @game.id -%>" type="button" class="<%= button_class -%>">
+  Toggle Purcharse
+</button>
+</span>
+
+<br><br>
 
 <%= link_to 'Edit', edit_game_path(@game) %> |
 <%= link_to 'Back', games_path %>
+
+<style>
+.s-isActive {
+    color: #d9534f;  // Hex for primary-danger
+}
+.s-notActive{
+    color: grey;
+}
+.s-isActive:hover{
+    color: #990000;
+}
+.s-notActive:hover{
+    color: #474747;
+}
+</style>

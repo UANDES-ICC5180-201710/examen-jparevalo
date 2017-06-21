@@ -14,8 +14,8 @@
     <% @games.each do |game| %>
       <tr>
         <td><%= game.title %></td>
-        <td><%= game.description %></td>
-        <td><%= game.image_url %></td>
+        <td><%= truncate(game.description.html_safe, length:75) %></td>
+        <td><%= truncate(game.image_url.html_safe, length:75)%></td>
         <td><%= link_to 'Show', game %></td>
         <% if @current_user.is_staff %>
           <td><%= link_to 'Edit', edit_game_path(game) %></td>
