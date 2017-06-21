@@ -11,22 +11,21 @@
 </h1>
 
 <br>
-<h2>
-  <%= @user.to_s %>'s Games:
-</h2>
-<h5>
-  Games owned: <%= @user.purcharses.length %>
-</h5>
-<div>
-<% @user.purcharses.each do |pur| %>
-  <%= link_to image_tag( pur.game.image_url, :style => "width:100px;height:100px"), pur.game %>
-<% end %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2>
+      <%= @user.to_s %>'s Games:
+    </h2>
+    <h5>
+      Games owned: <%= @user.purcharses.length %>
+    </h5>
+  </div>
+  <div class="panel-body">
+    <% @user.purcharses.each do |pur| %>
+      <%= link_to image_tag( pur.game.image_url, :style => "width:100px;height:100px"), pur.game %>
+    <% end %>
+  </div>
 </div>
-
-
-<p>
-
-</p>
 
 <% if @current_user.is_staff %>
   <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-primary", style: "color:white" %> |
