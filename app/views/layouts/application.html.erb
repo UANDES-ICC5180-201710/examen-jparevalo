@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>BaseExamen</title>
+    <title>Examen Tecnologias de la Web</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,6 +9,94 @@
   </head>
 
   <body>
-    <%= yield %>
+    <br>
+    <br>
+    <nav class="navbar navbar-toogleable-md navbar-fixed-top navbar-inverse" style="line-height: 50px;">
+
+      <div class="container-fluid">
+        <div>
+          <%= link_to "EXAMEN WEB", games_path, id: "logo" %>
+        <div>
+        <div class="navbar-header" style="margin-bottom: 11px">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+            <%= form_tag(games_path, method: 'get', class: 'form-inline navbar-form navbar-left') do %>
+              <%= search_field_tag 'search', params[:search], class: 'form-control', placeholder: 'Search'  %>
+              <%= submit_tag "Submit", class: 'btn btn-primary', :name => nil %>
+            <% end %>
+            <nav style="line-height: 70px;">
+                <ul class="nav navbar-nav navbar-right">
+                    <% if user_signed_in? %>
+                        <li>
+                            <%= link_to games_path do %>
+                              <span class="fa fa-gamepad" style="color:white; line-height: 40px;"></span>
+                              Browse Games
+                            <% end %>
+                        </li>
+                        <li>
+                            <%= link_to users_path do %>
+                              <span class="fa fa-user" style="color:white; line-height: 40px;"></span>
+                              Users
+                            <% end %>
+                        </li>
+                        <li>
+                            <%= link_to(destroy_user_session_path, :method => :delete) do %>
+                              <span class="fa fa-sign-out" style="color:white; line-height: 40px;"></span>
+                              Logout
+                            <% end %>
+                        </li>
+                    <%else %>
+                        <li>
+                            <%= link_to games_path do %>
+                              <span class="fa fa-gamepad" style="color:white; line-height: 40px;"></span>
+                              Browse Games
+                            <% end %>
+                        </li>
+                        <li>
+                            <%= link_to new_user_session_path do %>
+                              <span class="fa fa-sign-out" style="color:white; line-height: 40px;"></span>
+                              Sign In
+                            <% end %>
+                        </li>
+                    <% end %>
+                </ul>
+            </nav>
+        </div>
+      </nav>
+    </div>
+    <div class="container" style='margin-top:70px'>
+      <% if not notice.nil? %>
+        <div class="alert alert-success" role="alert"><%= notice %><a class="close" data-dismiss="alert" href="#">&times;</a></div>
+      <% end %>
+      <% if not alert.nil? %>
+        <div class="alert alert-danger" role="alert"><%= alert %><a class="close" data-dismiss="alert" href="#">&times;</a></div>
+      <% end %>
+      <%= yield %>
+    </div>
   </body>
 </html>
+
+<style>
+@media (min-width: 768px) and (max-width: 1150px) {
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+    .navbar-collapse.collapse.in {
+        display: block !important;
+    }
+    .navbar-header .collapse, .navbar-toggle {
+        display:block !important;
+    }
+    .navbar-header {
+        float:none;
+    }
+}
+</style>

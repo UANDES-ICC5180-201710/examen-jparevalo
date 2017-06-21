@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>First name:</strong>
   <%= @user.first_name %>
@@ -14,6 +12,11 @@
   <strong>Is staff:</strong>
   <%= @user.is_staff %>
 </p>
-
+<% if @current_user.is_staff %>
+  <div>
+    <%= link_to 'Toggle Staff Property', toggle_staff_path(:user => @user), class: "btn btn-primary", style: "color:white" %>
+  </div>
+<% end %>
+<br><br>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
