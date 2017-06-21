@@ -17,8 +17,10 @@
         <td><%= game.title %></td>
         <td><%= truncate(game.description.html_safe, length:75) %></td>
         <td><%= link_to 'Show', game, class: "btn btn-info", style: "color:white" %></td>
-        <% if @current_user.is_staff %>
-          <td><%= link_to 'Edit', edit_game_path(game), class: "btn btn-primary", style: "color:white" %></td>
+        <% if !@current_user.nil? %>
+          <% if @current_user.is_staff %>
+            <td><%= link_to 'Edit', edit_game_path(game), class: "btn btn-primary", style: "color:white" %></td>
+          <% end %>
         <% end %>
         <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", style: "color:white" %></td>
       </tr>
@@ -28,4 +30,6 @@
 
 <br>
 
-<%= link_to 'New Game', new_game_path, class: "btn btn-primary", style: "color:white" %>
+<% if !@current_user.nil? %>
+  <%= link_to 'New Game', new_game_path, class: "btn btn-primary", style: "color:white" %>
+<% end %>

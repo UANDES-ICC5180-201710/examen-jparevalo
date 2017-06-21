@@ -1,5 +1,5 @@
 
-<% if @current_user.id %>
+<% if !@current_user.nil? %>
       <% button_class = 'btn btn-primary notActive' %>
       <% button_title = 'Save as Purcharsed' %>
       <% @current_user.purcharses.each do |pu| %>
@@ -9,14 +9,16 @@
           <% break %>
         <% end %>
       <% end %>
-    <% end %>
+
 <span>
 <button title="Toggle Purcharse" onclick="togglePurcharse(<%= @game.id -%>)" id="<%= @game.id -%>" type="button" class="<%= button_class -%>">
   <%= button_title -%>
 </button>
     <p id='people-purcharsed-<%= @game.id -%>' style="display:inline;">Purcharses: <%= @game.purcharses.length %></p>
 </span>
-
+<% else %>
+<p id='people-purcharsed-<%= @game.id -%>' style="display:inline;">Purcharses: <%= @game.purcharses.length %></p>
+<% end %>
 <br><br>
 
 <div class = "row">
@@ -42,8 +44,10 @@
 </div>
 <br><br>
 <div>
-  <% if @current_user.is_staff %>
-    <%= link_to 'Edit', edit_game_path(@game), class: "btn btn-primary", style: "color:white" %> |
+  <% if !@current_user.nil? %>
+    <% if @current_user.is_staff %>
+      <%= link_to 'Edit', edit_game_path(@game), class: "btn btn-primary", style: "color:white" %> |
+    <% end %>
   <% end %>
   <%= link_to 'Back', games_path, class: "btn btn-danger", style: "color:white" %>
 </div>

@@ -35,12 +35,17 @@ class GamesController < ApplicationController
     @game = Game.new(game_params)
 
     respond_to do |format|
-      if @game.save
-        format.html { redirect_to @game, notice: 'Game was successfully created.' }
-        format.json { render :show, status: :created, location: @game }
+      if !current_user.nil?
+        if !current_user.is_staff
+          format.html { redirect_to games_path, alert: 'Yout must be Staff to create games.' }
+          format.json { render :show, status: :ok, location: @game }
+        elsif @game.save
+          format.html { redirect_to @game, notice: 'Game was successfully created.' }
+          format.json { render :show, status: :created, location: @game }
+        end
       else
-        format.html { render :new }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
+        format.html { redirect_to games_path, alert: 'Yout must be Staff to create games.' }
+        format.json { render :show, status: :ok, location: @game }
       end
     end
   end
@@ -49,12 +54,14 @@ class GamesController < ApplicationController
   # PATCH/PUT /games/1.json
   def update
     respond_to do |format|
-      if !current_user.is_staff
-        format.html { redirect_to games_path, alert: 'Yout must be Staff to edit games.' }
-        format.json { render :show, status: :ok, location: @game }
-      elsif @game.update(game_params)
-        format.html { redirect_to @game, notice: 'Game was successfully updated.' }
-        format.json { render :show, status: :ok, location: @game }
+      if !current_user.nil?
+        if !current_user.is_staff
+          format.html { redirect_to games_path, alert: 'Yout must be Staff to edit games.' }
+          format.json { render :show, status: :ok, location: @game }
+        elsif @game.update(game_params)
+          format.html { redirect_to @game, notice: 'Game was successfully updated.' }
+          format.json { render :show, status: :ok, location: @game }
+        end
       else
         format.html { render :edit }
         format.json { render json: @game.errors, status: :unprocessable_entity }
@@ -66,13 +73,17 @@ class GamesController < ApplicationController
   # DELETE /games/1.json
   def destroy
     respond_to do |format|
-      if !current_user.is_staff
+      if !current_user.nil?
+        if !current_user.is_staff
+          format.html { redirect_to games_path, alert: 'Yout must be Staff to delete games.' }
+          format.json { render :show, status: :ok, location: @game }
+        elsif @game.update(game_params)
+          format.html { redirect_to @game, notice: 'Game was successfully updated.' }
+          format.json { render :show, status: :ok, location: @game }
+        end
+      else
         format.html { redirect_to games_path, alert: 'Yout must be Staff to delete games.' }
         format.json { render :show, status: :ok, location: @game }
-      else
-        @game.destroy
-        format.html { redirect_to games_url, notice: 'Game was successfully destroyed.' }
-        format.json { head :no_content }
       end
     end
   end
