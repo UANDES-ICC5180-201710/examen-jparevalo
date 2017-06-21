@@ -13,12 +13,12 @@
   <%= @game.image_url %>
 </p>
 <% if @current_user.id %>
-      <% button_class = 'btn btn-link notActive' %>
+      <% button_class = 'btn btn-primary notActive' %>
       <% button_title = 'I Have it!' %>
       <% span_class = 's-notActive' %>
       <% @current_user.purcharses.each do |pu| %>
         <% if pu.game == @game %>
-          <% button_class = 'btn btn-link isActive' %>
+          <% button_class = 'btn btn-success isActive' %>
           <% button_title = 'I dont have it!' %>
           <% span_class = 's-isActive' %>
           <% break %>
@@ -39,7 +39,7 @@
 
 <style>
 .s-isActive {
-    color: #d9534f;  // Hex for primary-danger
+    color: #5cb85c;  // Hex for primary-success
 }
 .s-notActive{
     color: grey;

@@ -4,8 +4,8 @@ function togglePurcharse(clicked_game_id) {
     $peopleLikes = $('#people-purcharsed-'+clicked_game_id);
     if($button.hasClass('isActive')){
 
-        $button.addClass('notActive');
-        $button.removeClass('isActive');
+        $button.addClass('btn-primary notActive');
+        $button.removeClass('btn-success isActive');
         $button.prop('title', 'I have it!');
 
         $span.addClass('s-notActive');
@@ -14,8 +14,8 @@ function togglePurcharse(clicked_game_id) {
         $url = '/remove_purcharse';
     } else {
 
-        $button.addClass('isActive');
-        $button.removeClass('notActive');
+        $button.addClass('btn-success isActive');
+        $button.removeClass('btn-primary notActive');
         $button.prop('title', 'I do not have it!');
 
         $span.addClass('s-isActive');
