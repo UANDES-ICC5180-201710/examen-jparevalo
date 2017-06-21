@@ -6,20 +6,14 @@ function togglePurcharse(clicked_game_id) {
 
         $button.addClass('btn-primary notActive');
         $button.removeClass('btn-success isActive');
-        $button.prop('title', 'I have it!');
-
-        $span.addClass('s-notActive');
-        $span.removeClass('s-isActive');
+        $button.html('Save as Purcharsed');
 
         $url = '/remove_purcharse';
     } else {
 
         $button.addClass('btn-success isActive');
         $button.removeClass('btn-primary notActive');
-        $button.prop('title', 'I do not have it!');
-
-        $span.addClass('s-isActive');
-        $span.removeClass('s-notActive');
+        $button.html("Remove from Purcharses");
 
         $url = '/add_purcharse';
     }
