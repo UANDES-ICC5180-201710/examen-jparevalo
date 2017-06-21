@@ -49,7 +49,10 @@ class GamesController < ApplicationController
   # PATCH/PUT /games/1.json
   def update
     respond_to do |format|
-      if @game.update(game_params)
+      if !current_user.is_staff
+        format.html { redirect_to games_path, alert: 'Yout must be Staff to edit games.' }
+        format.json { render :show, status: :ok, location: @game }
+      elsif @game.update(game_params)
         format.html { redirect_to @game, notice: 'Game was successfully updated.' }
         format.json { render :show, status: :ok, location: @game }
       else
