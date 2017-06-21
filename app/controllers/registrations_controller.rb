@@ -5,6 +5,7 @@ class RegistrationsController < Devise::RegistrationsController
     @user = User.new
   end
 
+  #AUTOMATIC LOGIN IS DISABLED, REDIRECTS TO LOGIN AFTER SIGN UP
   def create
     @user = User.new(user_params)
     @user.is_staff = false    # By default
