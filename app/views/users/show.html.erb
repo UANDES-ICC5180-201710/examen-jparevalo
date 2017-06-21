@@ -1,23 +1,33 @@
-<p>
-  <strong>First name:</strong>
-  <%= @user.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @user.last_name %>
-</p>
-
-<p>
-  <strong>Is staff:</strong>
-  <%= @user.is_staff %>
-</p>
-<% if @current_user.is_staff %>
-  <div>
+<h1>
+  <%= @user.to_s %>
+  <% if @user.is_staff %>
+    [STAFF]
+  <% else %>
+    [Normal User]
+  <% end %>
+  <% if @current_user.is_staff %>
     <%= link_to 'Toggle Staff Property', toggle_staff_path(:user => @user), class: "btn btn-info", style: "color:white" %>
-  </div>
+  <% end %>
+</h1>
+
+<br>
+<h2>
+  <%= @user.to_s %>'s Games:
+</h2>
+<h5>
+  Games owned: <%= @user.purcharses.length %>
+</h5>
+<div>
+<% @user.purcharses.each do |pur| %>
+  <%= link_to image_tag( pur.game.image_url, :style => "width:100px;height:100px"), pur.game %>
 <% end %>
-<br><br>
+</div>
+
+
+<p>
+
+</p>
+
 <% if @current_user.is_staff %>
   <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-primary", style: "color:white" %> |
 <% end %>
