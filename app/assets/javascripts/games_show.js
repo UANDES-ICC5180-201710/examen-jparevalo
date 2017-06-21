@@ -23,6 +23,7 @@ function togglePurcharse(clicked_game_id) {
 
         $url = '/add_purcharse';
     }
+
     $button.blur();
 
     $.ajax({
