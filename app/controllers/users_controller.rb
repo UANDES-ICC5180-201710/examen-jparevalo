@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+    @current_user = current_user
   end
 
   # GET /users/1
@@ -20,6 +21,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @current_user = current_user
   end
 
   # POST /users
@@ -56,7 +58,10 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
-      if @user.update(user_params)
+      if !current_user.is_staff
+        format.html { redirect_to users_path, alert: 'Yout must be Staff to edit users.' }
+        format.json { render :show, status: :ok, location: @user }
+      elsif @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else

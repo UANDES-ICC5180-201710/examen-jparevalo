@@ -65,10 +65,15 @@ class GamesController < ApplicationController
   # DELETE /games/1
   # DELETE /games/1.json
   def destroy
-    @game.destroy
     respond_to do |format|
-      format.html { redirect_to games_url, notice: 'Game was successfully destroyed.' }
-      format.json { head :no_content }
+      if !current_user.is_staff
+        format.html { redirect_to games_path, alert: 'Yout must be Staff to delete games.' }
+        format.json { render :show, status: :ok, location: @game }
+      else
+        @game.destroy
+        format.html { redirect_to games_url, notice: 'Game was successfully destroyed.' }
+        format.json { head :no_content }
+      end
     end
   end
 
